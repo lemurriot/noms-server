@@ -6,15 +6,15 @@ TRUNCATE
     likes_and_comments
     RESTART IDENTITY CASCADE;
 
-INSERT INTO users (user_name, password) VALUES
-('charlie_pdx', 'charlie_pdx!'),
-('jane_doh!', 'jane_doh!!'),
-('simmons_is_a_foodie', 'simmons_is_a_foodie!'),
-('salsa_champion12', 'salsa_champion12!'),
-('sideshow_kabob87', 'sideshow_kabob87!'),
-('rabbit007', 'rabbit007!'),
-('pdx_eater', 'pdx_eater!'),
-('ken_haz_cheezburger', 'ken_haz_cheezburger!');
+INSERT INTO users (user_name, password, email) VALUES
+('charlie_pdx', 'charlie_pdx!', 'charlie.pdx.ch@gmail.com'),
+('jane_doh!', 'jane_doh!!', 'jane@gmail.com'),
+('simmons_is_a_foodie', 'simmons_is_a_foodie!', 'simmons@gmail.com'),
+('salsa_champion12', 'salsa_champion12!', 'salsachampion@gmail.com'),
+('sideshow_kabob87', 'sideshow_kabob87!', 'sideshowkabab@gmail.com'),
+('rabbit007', 'rabbit007!', 'rabbit007@gmail.com'),
+('pdx_eater', 'pdx_eater!', 'pdx.eater.joe@gmail.com'),
+('ken_haz_cheezburger', 'ken_haz_cheezburger!', 'kenhazcheezburger12@gmail.com');
 
 INSERT INTO noms_restaurants (name, food_category, nominated_by_user) VALUES 
     ('Burger Blam!', 'Burger', 1),

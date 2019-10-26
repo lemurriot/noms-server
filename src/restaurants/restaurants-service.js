@@ -1,0 +1,28 @@
+const xss = require('xss')
+
+const RestaurantsService = {
+    getAllRestaurants(db){
+        return db
+            .from('noms_restaurants AS noms')
+            .select(
+                'noms.id',
+                'noms.name',
+                'noms.date_nominated',
+                'noms.nominated_by_user',
+                'noms.food_category',
+            )
+            .groupBy('noms.food_category', 'noms.id')
+    },
+    serializeRestaurant(restaurant){
+        const { id, name, date_nominated, nominated_by_user, food_category } = restaurant
+        return {
+            id,
+            name: xss(name),
+            date_nominated,
+            nominated_by_user,
+            food_category
+        }
+    }
+}
+
+module.exports = RestaurantsService

@@ -3,7 +3,7 @@ const xss = require('xss')
 const RestaurantsService = {
     getAllRestaurants(db){
         return db
-            .from('noms_restaurants AS noms')
+            .from('restaurants AS noms')
             .select(
                 'noms.id',
                 'noms.name',

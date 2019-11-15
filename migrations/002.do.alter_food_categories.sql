@@ -4,6 +4,6 @@ CREATE TYPE food_category AS ENUM (
     'Falafel'
 );
 
-ALTER TABLE noms_restaurants
+ALTER TABLE restaurants
     ADD COLUMN
         food_category food_category;

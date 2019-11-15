@@ -6,7 +6,7 @@ CREATE TABLE users (
     date_created TIMESTAMP DEFAULT now() NOT NULL
 );
 
-ALTER TABLE noms_restaurants 
+ALTER TABLE restaurants 
     ADD COLUMN 
         nominated_by_user INTEGER REFERENCES users(id)
         ON DELETE SET NULL;

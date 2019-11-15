@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS noms_restaurants;
+DROP TABLE IF EXISTS restaurants;

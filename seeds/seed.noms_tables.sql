@@ -1,7 +1,7 @@
 BEGIN;
 
 TRUNCATE   
-    noms_restaurants,
+    restaurants,
     users,
     likes_and_comments
     RESTART IDENTITY CASCADE;
@@ -16,7 +16,7 @@ INSERT INTO users (user_name, password, email) VALUES
 ('pdx_eater', 'pdx_eater!', 'pdx.eater.joe@gmail.com'),
 ('ken_haz_cheezburger', 'ken_haz_cheezburger!', 'kenhazcheezburger12@gmail.com');
 
-INSERT INTO noms_restaurants (name, food_category, nominated_by_user) VALUES 
+INSERT INTO restaurants (name, food_category, nominated_by_user) VALUES 
     ('Burger Blam!', 'Burger', 1),
     ('Sally''s Burgers', 'Burger', 1),
     ('Downtown Deli & Grill', 'Burger', 2);

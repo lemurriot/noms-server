@@ -1,5 +1,5 @@
 TRUNCATE   
-    noms_restaurants,
+    restaurants,
     users,
     likes_and_comments
     RESTART IDENTITY CASCADE;

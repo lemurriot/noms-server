@@ -10,17 +10,24 @@ const RestaurantsService = {
                 'noms.date_nominated',
                 'noms.nominated_by_user',
                 'noms.food_category',
+                db.raw('count(lc.user_id) as vote_count')
             )
-            .groupBy('noms.food_category', 'noms.id')
+            .leftJoin(
+                'likes_and_comments AS lc',
+                'noms.id',
+                'lc.restaurant_id'
+            )
+            .groupBy('noms.id')
     },
     serializeRestaurant(restaurant){
-        const { id, name, date_nominated, nominated_by_user, food_category } = restaurant
+        const { id, name, date_nominated, nominated_by_user, food_category, vote_count } = restaurant
         return {
             id,
             name: xss(name),
             date_nominated,
             nominated_by_user,
-            food_category
+            food_category,
+            vote_count
         }
     }
 }

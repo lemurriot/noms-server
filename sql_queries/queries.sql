@@ -14,3 +14,6 @@ SELECT lc.*, noms.* from likes_and_comments AS lc LEFT JOIN restaurants AS noms 
 
 -- provides restaurant info w/ vote_count for single restaurant only
 SELECT noms.*, COUNT(lc.user_id) AS vote_count FROM restaurants AS noms LEFT JOIN likes_and_comments AS lc ON noms.id=lc.restaurant_id  WHERE noms.id=1 GROUP BY noms.id; 
+
+-- provides comments and usernames of commenters for a given restaurant
+SELECT lc.*, u.user_name FROM likes_and_comments AS lc LEFT JOIN users AS u ON lc.user_id=u.id WHERE lc.restaurant_id=1;

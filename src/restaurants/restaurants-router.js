@@ -1,15 +1,36 @@
 const express = require("express");
+const path = require("path");
 const RestaurantsService = require("./restaurants-service");
 
 const restaurantsRouter = express.Router();
+jsonBodyParser = express.json();
 
-restaurantsRouter.route("/").get((req, res, next) => {
-  RestaurantsService.getAllRestaurants(req.app.get("db"))
-    .then(restaurants => {
-      res.json(restaurants.map(RestaurantsService.serializeRestaurant));
-    })
-    .catch(next);
-});
+restaurantsRouter
+  .route("/")
+  .get((req, res, next) => {
+    RestaurantsService.getAllRestaurants(req.app.get("db"))
+      .then(restaurants => {
+        res.json(restaurants.map(RestaurantsService.serializeRestaurant));
+      })
+      .catch(next);
+  })
+  .post(jsonBodyParser, (req, res, next) => {
+    // TO DO require auth
+    // TO DO post comment
+    const { restaurant_name, comment = "" } = req.body;
+    const newNom = { restaurant_name, comment };
+    if (!restaurant_name)
+      return res.status(400).json({
+        error: `Missing restaurant_name in request body`
+      });
+    // newNom.user_id = req.user.id
+    //Auth needed
+    newNom.user_id = Math.floor(Math.random() * 100) + 1;
+
+    //TO DO write RestaurantService.insertNewNomination
+    RestaurantsService.postNewRestaurant(req.app.get("db"), newNom);
+    res.end();
+  });
 
 restaurantsRouter
   .route("/:restaurant_id")
@@ -20,11 +41,9 @@ restaurantsRouter
       req.params.restaurant_id
     ).then(comments => {
       res.restaurant.comments = comments;
-      console.log(res.restaurant);
       res.json(
         RestaurantsService.serializeRestaurantUsersAndComments(res.restaurant)
       );
-      // res.json(RestaurantsService.serializeRestaurant(res.restaurant))
     });
   });
 

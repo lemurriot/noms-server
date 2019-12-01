@@ -32,6 +32,9 @@ const RestaurantsService = {
       .leftJoin("users", "lc.user_id", "users.id")
       .groupBy("lc.id", "lc.date_commented", "users.user_name");
   },
+  postNewRestaurant(db, newRestaurant) {
+    console.log(newRestaurant);
+  },
   serializeRestaurant(restaurant) {
     const {
       id,
@@ -72,12 +75,10 @@ const RestaurantsService = {
   },
   serializeRestaurantUsersAndComments(restaurant) {
     const serializedRestaurant = this.serializeRestaurant(restaurant);
-    console.log(serializedRestaurant);
     const { comments } = restaurant;
     serializedComments = comments.map(comment =>
       this.serializeComments(comment)
     );
-    console.log(comments);
     return {
       ...serializedRestaurant,
       comments: comments.map(comment => this.serializeComments(comment))

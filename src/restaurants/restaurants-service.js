@@ -16,7 +16,6 @@ const RestaurantsService = {
       .groupBy("noms.id");
   },
   getRestaurantById(db, restaurantId) {
-    console.log(restaurantId);
     return db
       .from("restaurants AS noms")
       .select("noms.*", db.raw("count(lc.user_id) as vote_count"))
@@ -50,7 +49,6 @@ const RestaurantsService = {
       );
   },
   postNewLikesComments(db, restaurant, comment) {
-    // console.log('hi', restaurant, comment)
     const { id, nominated_by_user } = restaurant;
     return db
       .insert({

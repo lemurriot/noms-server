@@ -16,20 +16,46 @@ restaurantsRouter
   })
   .post(jsonBodyParser, (req, res, next) => {
     // TO DO require auth
-    // TO DO post comment
-    const { restaurant_name, comment = "" } = req.body;
-    const newNom = { restaurant_name, comment };
-    if (!restaurant_name)
-      return res.status(400).json({
-        error: `Missing restaurant_name in request body`
-      });
-    // newNom.user_id = req.user.id
-    //Auth needed
-    newNom.user_id = Math.floor(Math.random() * 100) + 1;
+    // TO DO add a post-comment only route
+    const { restaurant_name, food_category, comment = "" } = req.body;
+    const newNom = { restaurant_name, food_category, comment };
+    // TO DO extract food categories array to its own file for import
+    const validFoodCategories = ["Burger", "Falafel", "Burrito"];
+    for (const [key, value] of Object.entries(newNom))
+      if (value == null)
+        return res.status(400).json({
+          error: `Missing '${key}' in request body`
+        });
 
+    if (!validFoodCategories.includes(food_category))
+      return res.status(400).json({
+        error: `Invalid food_category parameter`
+      });
+
+    // newNom.user_id = req.user.id
+    //Auth needed, right now there are 8 dummy users
+    newNom.nominated_by_user = Math.floor(Math.random() * 8) + 1;
     //TO DO write RestaurantService.insertNewNomination
-    RestaurantsService.postNewRestaurant(req.app.get("db"), newNom);
-    res.end();
+    RestaurantsService.postNewRestaurant(req.app.get("db"), newNom)
+      .then(restaurant => {
+        res.restaurant = restaurant;
+        return restaurant;
+      })
+      .then(restaurant =>
+        RestaurantsService.getCommentsAndUsers(req.app.get("db"), restaurant.id)
+      )
+      .then(comments => (res.restaurant.comments = comments))
+      .then(() => {
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/${res.restaurant.id}`))
+          .json(
+            RestaurantsService.serializeRestaurantUsersAndComments(
+              res.restaurant
+            )
+          );
+      })
+      .catch(next);
   });
 
 restaurantsRouter

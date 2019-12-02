@@ -16,6 +16,7 @@ const RestaurantsService = {
       .groupBy("noms.id");
   },
   getRestaurantById(db, restaurantId) {
+    console.log(restaurantId);
     return db
       .from("restaurants AS noms")
       .select("noms.*", db.raw("count(lc.user_id) as vote_count"))
@@ -33,7 +34,35 @@ const RestaurantsService = {
       .groupBy("lc.id", "lc.date_commented", "users.user_name");
   },
   postNewRestaurant(db, newRestaurant) {
-    console.log(newRestaurant);
+    const {
+      restaurant_name: name,
+      food_category,
+      nominated_by_user: user,
+      comment
+    } = newRestaurant;
+    return db
+      .insert({ name, food_category, nominated_by_user: user })
+      .into("restaurants")
+      .returning("*")
+      .then(([restaurant]) => restaurant)
+      .then(restaurant =>
+        RestaurantsService.postNewLikesComments(db, restaurant, comment)
+      );
+  },
+  postNewLikesComments(db, restaurant, comment) {
+    // console.log('hi', restaurant, comment)
+    const { id, nominated_by_user } = restaurant;
+    return db
+      .insert({
+        user_id: nominated_by_user,
+        restaurant_id: id,
+        comment
+      })
+      .into("likes_and_comments")
+      .returning("*")
+      .then(([lc]) =>
+        RestaurantsService.getRestaurantById(db, lc.restaurant_id)
+      );
   },
   serializeRestaurant(restaurant) {
     const {

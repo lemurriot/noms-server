@@ -103,9 +103,9 @@ const RestaurantsService = {
   serializeRestaurantUsersAndComments(restaurant) {
     const serializedRestaurant = this.serializeRestaurant(restaurant);
     const { comments } = restaurant;
-    serializedComments = comments.map(comment =>
-      this.serializeComments(comment)
-    );
+    // const serializedComments = comments.map(comment =>
+    //   this.serializeComments(comment)
+    // );
     return {
       ...serializedRestaurant,
       comments: comments.map(comment => this.serializeComments(comment))

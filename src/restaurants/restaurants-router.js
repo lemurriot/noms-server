@@ -3,7 +3,7 @@ const path = require("path");
 const RestaurantsService = require("./restaurants-service");
 
 const restaurantsRouter = express.Router();
-jsonBodyParser = express.json();
+const jsonBodyParser = express.json();
 
 restaurantsRouter
   .route("/")
@@ -29,13 +29,13 @@ restaurantsRouter
 
     if (!validFoodCategories.includes(food_category))
       return res.status(400).json({
-        error: `Invalid food_category parameter`
+        error: "Invalid food_category parameter"
       });
 
     // newNom.user_id = req.user.id
-    //Auth needed, right now there are 8 dummy users
+    // Auth needed, right now there are 8 dummy users
     newNom.nominated_by_user = Math.floor(Math.random() * 8) + 1;
-    //TO DO write RestaurantService.insertNewNomination
+    // TO DO write RestaurantService.insertNewNomination
     RestaurantsService.postNewRestaurant(req.app.get("db"), newNom)
       .then(restaurant => {
         res.restaurant = restaurant;
@@ -44,7 +44,9 @@ restaurantsRouter
       .then(restaurant =>
         RestaurantsService.getCommentsAndUsers(req.app.get("db"), restaurant.id)
       )
-      .then(comments => (res.restaurant.comments = comments))
+      .then(comments => {
+        res.restaurant.comments = comments;
+      })
       .then(() => {
         res
           .status(201)
@@ -81,7 +83,7 @@ async function checkRestaurantExists(req, res, next) {
     );
     if (!restaurant)
       return res.status(404).json({
-        error: `Restaurant does not exist`
+        error: "Restaurant does not exist"
       });
 
     res.restaurant = restaurant;

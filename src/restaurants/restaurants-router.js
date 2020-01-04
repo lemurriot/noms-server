@@ -16,7 +16,6 @@ restaurantsRouter
   })
   .post(jsonBodyParser, (req, res, next) => {
     // TO DO require auth
-    // TO DO add a post-comment only route
     const { restaurant_name, food_category, comment = "" } = req.body;
     const newNom = { restaurant_name, food_category, comment };
     // TO DO extract food categories array to its own file for import

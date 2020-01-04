@@ -23,7 +23,7 @@
     "curly": ["off"],
     "comma-dangle": ["off"],
     "no-use-before-define": ["off"],
-    "semi": ["error", "always"],
+    "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
     "quotes": ["error", "double"],
     "no-unused-vars": ["warn"],
     "no-var": ["off"],

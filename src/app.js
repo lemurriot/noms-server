@@ -7,6 +7,7 @@ const { NODE_ENV } = require("./config");
 
 const restaurantsRouter = require("./restaurants/restaurants-router");
 const commentsRouter = require("./comments/comments-router");
+const upvotesRouter = require("./upvotes/upvotes-router");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/comments", commentsRouter);
+app.use("/api/upvotes", upvotesRouter);
 
 app.get("/", (_req, res) => {
   res.send("Hello, world!");

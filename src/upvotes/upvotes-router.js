@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const UpvotesService = require("./upvotes-service");
 
 const upvotesRouter = express.Router();

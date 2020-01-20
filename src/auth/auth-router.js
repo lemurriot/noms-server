@@ -1,12 +1,24 @@
 const express = require("express");
+const passport = require("passport");
 
 const authRouter = express.Router();
 
-authRouter.route("/googleOAuth").get((req, res) => {
-  res.send("logging in with google");
-});
+authRouter.get(
+  "/google-oauth",
+  passport.authenticate("google", {
+    scope: ["profile"]
+  })
+);
 
-authRouter.route("/logout").get((req, res) => {
+authRouter.get(
+  "/google/redirect",
+  passport.authenticate("google"),
+  (req, res) => {
+    res.send("you reached the callback URI");
+  }
+);
+
+authRouter.get("/logout", (req, res) => {
   res.send("logging out");
 });
 

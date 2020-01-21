@@ -4,7 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
-const passportSetup = require("./config/passport-setup");
+const passport = require("passport");
+require("./config/passport-setup");
 
 const restaurantsRouter = require("./restaurants/restaurants-router");
 const commentsRouter = require("./comments/comments-router");
@@ -18,6 +19,9 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/comments", commentsRouter);

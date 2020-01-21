@@ -1,22 +1,37 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20");
 const keys = require("./keys");
+const AuthService = require("../auth/auth-service");
+
+const knexConfig = require("../knexfile");
+
+const knex = require("knex");
+
+const db = knex(knexConfig);
+passport.initialize();
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret,
-      callbackURL: "http://localhost:8000/api/auth/google/redirect"
+      callbackURL: "/api/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
-      // passport callback function
-      console.log(profile);
-      console.log("passport cb fired");
-      // done()
-      // currently console.logs correctly -- TO DO, connect to db for next line to work
-
-      // User.findOrCreate({ googleId: profile.id }, (err, user) => done(err, user));
+      console.log("Connecting to Google...");
+      AuthService.findUserById(db, profile.id).then(id => {
+        if (id) return done(null, profile);
+        else {
+          AuthService.createUser(db, profile).then(id => done(null, profile));
+        }
+      });
     }
   )
 );

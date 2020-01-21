@@ -6,7 +6,7 @@ const authRouter = express.Router();
 authRouter.get(
   "/google-oauth",
   passport.authenticate("google", {
-    scope: ["profile"]
+    scope: ["openid", "email", "profile"]
   })
 );
 
@@ -16,6 +16,10 @@ authRouter.get(
   (req, res) => {
     res.send("you reached the callback URI");
   }
+);
+
+authRouter.get("/unsuccessful", (req, res) =>
+  res.send("redirect unsuccessful")
 );
 
 authRouter.get("/logout", (req, res) => {

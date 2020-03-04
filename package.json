@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^2.1.2",
     "bcrypt": "^3.0.7",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -29,10 +30,12 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.19.5",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^7.12.1",
     "treeize": "^2.1.2",
+    "uuidv4": "^6.0.5",
     "xss": "^1.0.6"
   },
   "devDependencies": {

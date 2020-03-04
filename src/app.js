@@ -7,6 +7,7 @@ const { NODE_ENV } = require("./config");
 const passport = require("passport");
 require("./config/passport-setup");
 
+const autocompleteRouter = require("./autocomplete/autocomplete-router");
 const restaurantsRouter = require("./restaurants/restaurants-router");
 const commentsRouter = require("./comments/comments-router");
 const upvotesRouter = require("./upvotes/upvotes-router");
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/api/autocomplete", autocompleteRouter);
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/upvotes", upvotesRouter);

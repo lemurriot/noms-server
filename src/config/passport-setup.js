@@ -9,11 +9,11 @@ const knex = require("knex");
 
 const db = knex(knexConfig);
 passport.initialize();
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
@@ -26,11 +26,9 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       console.log("Connecting to Google...");
-      AuthService.findUserById(db, profile.id).then(id => {
-        if (id) return done(null, profile);
-        else {
-          AuthService.createUser(db, profile).then(id => done(null, profile));
-        }
+      AuthService.findUserById(db, profile.id).then(usr => {
+        if (usr) return done(null, usr);
+        AuthService.createUser(db, profile).then(newUsr => done(null, newUsr));
       });
     }
   )

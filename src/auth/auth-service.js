@@ -9,20 +9,22 @@ const AuthService = {
   findUserById(db, profileId) {
     console.log("Finding user...");
     return db
-      .select("*")
+      .select("id", "email", "user_name")
       .from("users")
       .where({ googleid: profileId })
       .first();
   },
   createUser(db, profile) {
     console.log("Creating user...");
-    // hashSyntheticGooglePassword("hello").then(hash => console.log("hello", hash))
-    return db("users").insert({
-      user_name: profile.displayName,
-      email: profile.emails[0].value,
-      password: hash(profile.id),
-      googleid: profile.id
-    });
+    // TO DO account for displayName equalling already existing one
+    return db("users")
+      .returning(["id", "email", "user_name"])
+      .insert({
+        user_name: profile.displayName,
+        email: profile.emails[0].value,
+        password: hash(profile.id),
+        googleid: profile.id
+      });
   }
 };
 

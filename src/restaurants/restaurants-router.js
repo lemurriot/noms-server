@@ -16,10 +16,22 @@ restaurantsRouter
   })
   .post(jsonBodyParser, (req, res, next) => {
     // TO DO require auth
-    const { restaurant_name, food_category, comment = "" } = req.body;
-    const newNom = { restaurant_name, food_category, comment };
+    const {
+      restaurant_name,
+      food_category,
+      subtitle,
+      address,
+      comment = ""
+    } = req.body;
+    const newNom = {
+      restaurant_name,
+      food_category,
+      subtitle,
+      address,
+      comment
+    };
     // TO DO extract food categories array to its own file for import
-    const validFoodCategories = ["Burger", "Falafel", "Burrito"];
+    const validFoodCategories = ["Burger", "Falafel", "Burrito", "Pizza"];
     for (const [key, value] of Object.entries(newNom))
       if (value == null)
         return res.status(400).json({

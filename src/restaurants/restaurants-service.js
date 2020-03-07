@@ -7,6 +7,8 @@ const RestaurantsService = {
       .select(
         "noms.id",
         "noms.name",
+        "noms.subtitle",
+        "noms.address",
         "noms.date_nominated",
         "noms.nominated_by_user",
         "noms.food_category",
@@ -67,6 +69,8 @@ const RestaurantsService = {
       id,
       name,
       date_nominated,
+      subtitle,
+      address,
       nominated_by_user,
       food_category,
       vote_count
@@ -74,6 +78,8 @@ const RestaurantsService = {
     return {
       id,
       name: xss(name),
+      subtitle: xss(subtitle),
+      address: xss(address),
       date_nominated,
       nominated_by_user,
       food_category,

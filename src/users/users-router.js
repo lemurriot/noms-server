@@ -4,8 +4,13 @@ const UsersService = require("./users-service");
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
-// usersRouter
-//   .get("/")
+usersRouter.route("/").get((req, res) => {
+  if (req.user) {
+    res.send(JSON.stringify(req.user));
+  } else {
+    res.send({ user: {} });
+  }
+});
 
 usersRouter
   .route("/edit-username")

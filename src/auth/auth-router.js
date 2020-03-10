@@ -14,8 +14,7 @@ authRouter.get(
   "/google/redirect",
   passport.authenticate("google"),
   (req, res) => {
-    res.send(req.user);
-    // res.redirect("http://localhost:3000");
+    res.redirect("http://localhost:3000");
   }
 );
 
@@ -24,7 +23,8 @@ authRouter.get("/unsuccessful", (req, res) =>
 );
 
 authRouter.get("/logout", (req, res) => {
-  res.send("logging out");
+  req.logout();
+  res.redirect("http://localhost:3000");
 });
 
 module.exports = authRouter;

@@ -3,9 +3,10 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const { NODE_ENV } = require("./config");
+const { NODE_ENV, requestOrigin } = require("./config");
 const keys = require("./config/keys");
 const passport = require("passport");
+const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 require("./config/passport-setup");
 
@@ -23,7 +24,17 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+app.use((_req, res, next) => {
+  res.header("Access-Control-Allow-Origin", requestOrigin);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
+app.use(cookieParser(keys.session.cookieKey));
 app.use(
   cookieSession({
     // 4 hour sessions
@@ -42,8 +53,8 @@ app.use("/api/upvotes", upvotesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 
-app.get("/", (_req, res) => {
-  res.send("Hello, world!");
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
 // eslint-disable-next-line prefer-arrow-callback

@@ -34,6 +34,9 @@ const RestaurantsService = {
       .leftJoin("users", "lc.user_id", "users.id")
       .groupBy("lc.id", "lc.date_commented", "users.user_name");
   },
+  getAllLikesAndComments(db) {
+    return db.from("likes_and_comments").select("*");
+  },
   postNewRestaurant(db, newRestaurant) {
     const {
       restaurant_name: name,

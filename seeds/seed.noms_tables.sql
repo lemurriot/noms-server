@@ -18,7 +18,7 @@ INSERT INTO users (user_name, password, email) VALUES
 
 INSERT INTO restaurants (name, subtitle, food_category, nominated_by_user) VALUES 
     ('Burger Blam!', 'NE Mississippi', 'Burger', 1),
-    ('Sally''s Burgers', 'SE Holgate', 'Burger', 1),
+    ('Sally''s BurgerTown', 'SE Holgate', 'Burger', 1),
     ('Downtown Deli & Grill', 'SW Stark', 'Burger', 2);
 
 INSERT INTO likes_and_comments (user_id, restaurant_id, comment) VALUES

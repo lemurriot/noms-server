@@ -71,8 +71,14 @@ restaurantsRouter
       .catch(next);
   });
 
+restaurantsRouter.route("/likes").get((req, res) => {
+  RestaurantsService.getAllLikesAndComments(req.app.get("db")).then(data =>
+    res.json(data)
+  );
+});
+
 restaurantsRouter
-  .route("/:restaurant_id")
+  .route("/likes/:restaurant_id")
   .all(checkRestaurantExists)
   .get((req, res) => {
     RestaurantsService.getCommentsAndUsers(

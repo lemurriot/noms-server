@@ -6,9 +6,9 @@ const jsonBodyParser = express.json();
 
 usersRouter.route("/").get((req, res) => {
   if (req.user) {
-    res.send(JSON.stringify(req.user));
+    res.send(JSON.stringify(req.user[0]));
   } else {
-    res.send({ user: {} });
+    res.send({});
   }
 });
 

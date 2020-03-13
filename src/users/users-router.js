@@ -6,7 +6,7 @@ const jsonBodyParser = express.json();
 
 usersRouter.route("/").get((req, res) => {
   if (req.user) {
-    res.send(JSON.stringify(req.user[0]));
+    res.json(req.user);
   } else {
     res.send({});
   }

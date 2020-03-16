@@ -10,17 +10,20 @@ const CommentsService = {
         restaurant_id: restaurantId
       });
   },
-  updateComment(db, userId, restaurantId, updatedComment) {
-    return db
-      .into("likes_and_comments")
-      .where({
-        user_id: userId,
-        restaurant_id: restaurantId
-      })
-      .update({
-        comment: xss(updatedComment)
-      })
-      .returning("*");
+  updateComment(db, userId, restaurantId, commentId, updatedComment) {
+    return (
+      db
+        .into("likes_and_comments")
+        // .where({
+        //   user_id: userId,
+        //   restaurant_id: restaurantId
+        // })
+        .where("id", commentId)
+        .update({
+          comment: xss(updatedComment)
+        })
+        .returning("*")
+    );
   }
 };
 

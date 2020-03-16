@@ -32,11 +32,12 @@ commentsRouter
      *  Upon initial upvote, a user's comment is set to an empty string.
      *  Therefore posting a 'new' comment is just updating the empty string.
      */
-    const { userId, restaurantId, updatedComment } = req.body;
+    const { userId, restaurantId, commentId, updatedComment } = req.body;
     CommentsService.updateComment(
       req.app.get("db"),
       userId,
       restaurantId,
+      commentId,
       updatedComment
     ).then(newUserRestaurantObj => {
       res

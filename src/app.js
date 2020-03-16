@@ -3,11 +3,11 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const { NODE_ENV, requestOrigin } = require("./config");
-const keys = require("./config/keys");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
+const { NODE_ENV, requestOrigin } = require("./config");
+const keys = require("./config/keys");
 require("./config/passport-setup");
 
 const autocompleteRouter = require("./autocomplete/autocomplete-router");

@@ -41,7 +41,7 @@ upvotesRouter
     } else {
       const { id } = res.upvoteId[0];
       UpvotesService.deleteUpvote(req.app.get("db"), id).then(() => {
-        res.status(204);
+        res.status(201).json({ message: `${id} deleted` });
       });
     }
   });

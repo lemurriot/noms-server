@@ -1,11 +1,10 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20");
+const knex = require("knex");
 const keys = require("./keys");
 const AuthService = require("../auth/auth-service");
 
 const knexConfig = require("../knexfile");
-
-const knex = require("knex");
 
 const db = knex(knexConfig);
 passport.initialize();
@@ -28,7 +27,9 @@ passport.use(
       console.log("Connecting to Google...");
       AuthService.findUserById(db, profile.id).then(usr => {
         if (usr) return done(null, usr);
-        AuthService.createUser(db, profile).then(newUsr => done(null, newUsr));
+        AuthService.createUser(db, profile).then(newUsr =>
+          done(null, newUsr[0])
+        );
       });
     }
   )

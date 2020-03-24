@@ -13,6 +13,13 @@ const UsersService = {
       .update("user_name", xss(newUsername))
       .into("users")
       .where("email", userEmail);
+  },
+  getHighestId(db) {
+    return db
+      .select("id")
+      .from("users")
+      .orderBy("id", "desc")
+      .limit(1);
   }
 };
 

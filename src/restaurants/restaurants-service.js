@@ -41,11 +41,13 @@ const RestaurantsService = {
     const {
       restaurant_name: name,
       food_category,
-      nominated_by_user: user,
+      subtitle,
+      address,
+      nominated_by_user,
       comment
     } = newRestaurant;
     return db
-      .insert({ name, food_category, nominated_by_user: user })
+      .insert({ name, food_category, nominated_by_user, subtitle, address })
       .into("restaurants")
       .returning("*")
       .then(([restaurant]) => restaurant)

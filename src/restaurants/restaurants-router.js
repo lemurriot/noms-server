@@ -16,23 +16,26 @@ restaurantsRouter
   })
   .post(jsonBodyParser, (req, res, next) => {
     // TO DO require auth
+    console.log("post restaurant: ", req.body);
     const {
       restaurant_name,
       food_category,
       subtitle,
       address,
+      nominated_by_user,
       comment = ""
     } = req.body;
-    const newNom = {
+    const newRestaurant = {
       restaurant_name,
       food_category,
       subtitle,
       address,
+      nominated_by_user,
       comment
     };
     // TO DO extract food categories array to its own file for import
     const validFoodCategories = ["Burger", "Falafel", "Burrito", "Pizza"];
-    for (const [key, value] of Object.entries(newNom))
+    for (const [key, value] of Object.entries(newRestaurant))
       if (value == null)
         return res.status(400).json({
           error: `Missing '${key}' in request body`
@@ -45,9 +48,9 @@ restaurantsRouter
 
     // newNom.user_id = req.user.id
     // Auth needed, right now there are 8 dummy users
-    newNom.nominated_by_user = Math.floor(Math.random() * 8) + 1;
+    // newNom.nominated_by_user = Math.floor(Math.random() * 8) + 1;
     // TO DO write RestaurantService.insertNewNomination
-    RestaurantsService.postNewRestaurant(req.app.get("db"), newNom)
+    RestaurantsService.postNewRestaurant(req.app.get("db"), newRestaurant)
       .then(restaurant => {
         res.restaurant = restaurant;
         return restaurant;

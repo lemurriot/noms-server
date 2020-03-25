@@ -52,7 +52,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/autocomplete", autocompleteRouter);
+app.use("/api/search", autocompleteRouter);
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/upvotes", upvotesRouter);

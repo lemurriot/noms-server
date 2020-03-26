@@ -3,5 +3,6 @@ CREATE TABLE restaurants (
     name TEXT NOT NULL,
     address TEXT,
     subtitle TEXT,
-    date_nominated TIMESTAMP DEFAULT now() NOT NULL
+    date_nominated TIMESTAMP DEFAULT now() NOT NULL,
+    googleId TEXT DEFAULT 'custom'
 );

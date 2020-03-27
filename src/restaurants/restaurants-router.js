@@ -23,6 +23,7 @@ restaurantsRouter
       subtitle,
       address,
       nominated_by_user,
+      googleid,
       comment = ""
     } = req.body;
     const newRestaurant = {
@@ -30,6 +31,7 @@ restaurantsRouter
       food_category,
       subtitle,
       address,
+      googleid,
       nominated_by_user,
       comment
     };

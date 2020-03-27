@@ -17,6 +17,12 @@ autocompleteRouter.route("/:querystring").put(jsonBodyParser, (req, res) => {
         "bar",
         "food"
       ];
+      /*
+        prediction.types is an array from the Google Places Autocomplete API
+        with keywords describing the place. To only send restaurant-like suggestions
+        to the client, we filter prediction.types to make sure it includes one of
+        the keywords in the filterTypes array.
+      */
       const filterPredictions = response.predictions.filter(prediction =>
         prediction.types.some(type => filterTypes.includes(type))
       );

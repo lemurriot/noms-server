@@ -12,6 +12,7 @@ const RestaurantsService = {
         "noms.date_nominated",
         "noms.nominated_by_user",
         "noms.food_category",
+        "noms.googleid",
         db.raw("count(lc.user_id) as vote_count")
       )
       .leftJoin("likes_and_comments AS lc", "noms.id", "lc.restaurant_id")
@@ -44,10 +45,18 @@ const RestaurantsService = {
       subtitle,
       address,
       nominated_by_user,
+      googleid,
       comment
     } = newRestaurant;
     return db
-      .insert({ name, food_category, nominated_by_user, subtitle, address })
+      .insert({
+        name,
+        food_category,
+        nominated_by_user,
+        subtitle,
+        googleid,
+        address
+      })
       .into("restaurants")
       .returning("*")
       .then(([restaurant]) => restaurant)

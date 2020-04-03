@@ -85,6 +85,7 @@ const RestaurantsService = {
       date_nominated,
       subtitle,
       address,
+      googleid,
       nominated_by_user,
       food_category,
       vote_count
@@ -95,6 +96,7 @@ const RestaurantsService = {
       subtitle: xss(subtitle),
       address: xss(address),
       date_nominated,
+      googleid: xss(googleid),
       nominated_by_user,
       food_category,
       vote_count

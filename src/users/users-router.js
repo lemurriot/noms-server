@@ -26,7 +26,7 @@ usersRouter
     } else {
       UsersService.changeUsername(
         req.app.get("db"),
-        req.body.email,
+        req.body.user_id,
         req.body.new_username
       )
         .then(user => {

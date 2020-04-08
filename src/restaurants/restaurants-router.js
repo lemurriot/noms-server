@@ -36,7 +36,7 @@ restaurantsRouter
       comment
     };
     // TO DO extract food categories array to its own file for import
-    const validFoodCategories = ["Burger", "Falafel", "Burrito", "Pizza"];
+    const validFoodCategories = ["Burger", "Sushi", "Burrito", "Pizza"];
     for (const [key, value] of Object.entries(newRestaurant))
       if (value == null)
         return res.status(400).json({
@@ -48,10 +48,6 @@ restaurantsRouter
         error: "Invalid food_category parameter"
       });
 
-    // newNom.user_id = req.user.id
-    // Auth needed, right now there are 8 dummy users
-    // newNom.nominated_by_user = Math.floor(Math.random() * 8) + 1;
-    // TO DO write RestaurantService.insertNewNomination
     RestaurantsService.postNewRestaurant(req.app.get("db"), newRestaurant)
       .then(restaurant => {
         res.restaurant = restaurant;

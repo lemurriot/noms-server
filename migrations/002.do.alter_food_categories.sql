@@ -1,7 +1,7 @@
 CREATE TYPE food_category AS ENUM (
     'Burger',
     'Burrito',
-    'Falafel',
+    'Sushi',
     'Pizza'
 );
 

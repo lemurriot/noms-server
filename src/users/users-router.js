@@ -15,12 +15,17 @@ usersRouter.route("/").get((req, res) => {
 usersRouter
   .route("/edit-username")
   .put(jsonBodyParser, async (req, res, next) => {
+    if (req.body.new_username.length > 25) {
+      res.status(404).json({
+        error: "Username cannot be longer than 25 characters"
+      });
+    }
     const userNameExists = await UsersService.checkUserNameExists(
       req.app.get("db"),
       req.body.new_username
     );
     if (userNameExists.length) {
-      res.status(404).json({
+      res.status(404).send({
         error: "Username is already taken"
       });
     } else {

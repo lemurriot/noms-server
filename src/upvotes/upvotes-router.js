@@ -27,9 +27,7 @@ upvotesRouter
         req.body.userId,
         req.body.restaurantId
       ).then(newUpvoteObject => {
-        res.status(201).json({
-          newUpvoteObject
-        });
+        res.status(201).json(newUpvoteObject[0]);
       });
     }
   })

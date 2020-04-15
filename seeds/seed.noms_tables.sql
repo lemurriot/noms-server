@@ -20,7 +20,11 @@ INSERT INTO restaurants (name, subtitle, food_category, nominated_by_user) VALUE
     ('Burger Blam!', 'NE Mississippi', 'Burger', 1),
     ('Sally''s BurgerTown', 'SE Holgate', 'Burger', 1),
     ('Downtown Deli & Grill', 'SW Stark', 'Burger', 2),
-    ('Jim''s Pizza', 'Downtown', 'Pizza', 5);
+    ('Jim''s Pizza', 'Downtown', 'Pizza', 5),
+    ('Rivertown Sushi', 'SW Markham St., Downtown Portland, OR', 'Sushi', 4),
+    ('Gyro House', 'SE 82nd Ave., Portland, OR', 'Gyro', 4),
+    ('Burrito Villa', 'SW 4th Ave, Downtown Portland, OR', 'Burrito', 8),
+    ('Bluebird Coffee', 'E Burnside, Portland, OR', 'Coffee', 6);
 
 INSERT INTO likes_and_comments (user_id, restaurant_id, comment) VALUES
     (1, 1, 'perfectly grilled!'),
@@ -30,7 +34,11 @@ INSERT INTO likes_and_comments (user_id, restaurant_id, comment) VALUES
     (1, 2, 'Scrumptious burger, the pickles are bombastic!'),
     (2, 2, 'I come here every Saturday for the Burger Special'),
     (3, 3, 'Whatever is in the sauce is amazing'),
-    (4, 3, 'By far my favorite burger in PDX!!'),
-    (5, 4, 'Brick oven pizza, this place is a hidden treasure');
+    (6, 3, 'By far my favorite burger in PDX!!'),
+    (4, 4, 'Brick oven pizza, this place is a hidden treasure'),
+    (5, 5, 'Always fresh and perfect'),
+    (4, 6, 'Cucumber sauce is great!'),
+    (8, 7, 'I''m a big fan of the chile relleno burritos here'),
+    (7, 8, 'Great atmosphere and delicious coffee');
 
 COMMIT;

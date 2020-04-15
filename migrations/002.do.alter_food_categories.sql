@@ -2,7 +2,9 @@ CREATE TYPE food_category AS ENUM (
     'Burger',
     'Burrito',
     'Sushi',
-    'Pizza'
+    'Pizza',
+    'Gyro',
+    'Coffee'
 );
 
 ALTER TABLE restaurants

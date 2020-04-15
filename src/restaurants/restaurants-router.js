@@ -36,7 +36,14 @@ restaurantsRouter
       comment
     };
     // TO DO extract food categories array to its own file for import
-    const validFoodCategories = ["Burger", "Sushi", "Burrito", "Pizza"];
+    const validFoodCategories = [
+      "Burger",
+      "Sushi",
+      "Burrito",
+      "Pizza",
+      "Gyro",
+      "Coffee"
+    ];
     for (const [key, value] of Object.entries(newRestaurant))
       if (value == null)
         return res.status(400).json({

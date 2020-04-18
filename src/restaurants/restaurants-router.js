@@ -15,8 +15,6 @@ restaurantsRouter
       .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
-    // TO DO require auth
-    console.log("post restaurant: ", req.body);
     const {
       restaurant_name,
       food_category,

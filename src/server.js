@@ -1,6 +1,6 @@
+const knex = require("knex");
 const app = require("./app");
 const knexConfig = require("./knexfile");
-const knex = require("knex");
 
 const { PORT } = require("./config");
 

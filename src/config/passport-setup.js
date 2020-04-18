@@ -25,6 +25,7 @@ passport.use(
       callbackURL: "/api/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
+      // eslint-disable-next-line no-console
       console.log("Connecting to Google...");
       AuthService.findUserById(db, profile.id).then(async usr => {
         if (usr) return done(null, usr);

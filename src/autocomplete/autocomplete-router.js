@@ -28,7 +28,6 @@ autocompleteRouter.route("/:querystring").put(jsonBodyParser, (req, res) => {
       );
       res.send({ ...response, predictions: filterPredictions });
     })
-    // TO DO flesh out error handling
     .catch(err => {
       res.status(401).json({
         message: "Could not fetch data",

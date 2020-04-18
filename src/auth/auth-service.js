@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
@@ -17,7 +18,6 @@ const AuthService = {
   },
   createUser(db, profile) {
     console.log("Creating user...");
-    // TO DO account for displayName equalling already existing one
     return db("users")
       .returning(["id", "email", "user_name"])
       .insert({

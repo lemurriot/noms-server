@@ -1,3 +1,5 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable func-names */
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
@@ -23,16 +25,12 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 const whitelist = ["https://nomspdx.com", "https://www.nomspdx.com"];
 const corsOptions = {
   credentials: true,
-  origin(origin, callback) {
-    if (process.env.NODE_ENV !== "production") {
-      if (origin === "http://localhost:3000") return callback(null, true);
-    }
+  origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
-      return callback(null, true);
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
     }
-    // else {
-    //   callback(new Error("Not allowed by CORS"));
-    // }
   }
 };
 app.use(morgan(morganOption));

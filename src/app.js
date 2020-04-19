@@ -1,5 +1,3 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable func-names */
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
@@ -22,14 +20,15 @@ const authRouter = require("./auth/auth-router");
 const app = express();
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
-const whitelist = ["https://nomspdx.com", "https://www.nomspdx.com"];
-const corsOptions = {
-  credentials: true,
-  origin: "https://www.nomspdx.com"
-};
+
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    credentials: true,
+    origin: requestOrigin
+  })
+);
 
 app.use(cookieParser(keys.session.cookieKey));
 app.use(

@@ -25,13 +25,7 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 const whitelist = ["https://nomspdx.com", "https://www.nomspdx.com"];
 const corsOptions = {
   credentials: true,
-  origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  }
+  origin: "https://www.nomspdx.com"
 };
 app.use(morgan(morganOption));
 app.use(helmet());

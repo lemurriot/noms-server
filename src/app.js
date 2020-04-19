@@ -28,10 +28,11 @@ const corsOptions = {
       if (origin === "http://localhost:3000") return callback(null, true);
     }
     if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+      return callback(null, true);
     }
+    // else {
+    //   callback(new Error("Not allowed by CORS"));
+    // }
   }
 };
 app.use(morgan(morganOption));

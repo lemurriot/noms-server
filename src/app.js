@@ -20,15 +20,23 @@ const authRouter = require("./auth/auth-router");
 const app = express();
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
-
+const whitelist = ["https://nomspdx.com", "https://www.nomspdx.com"];
+const corsOptions = {
+  credentials: true,
+  origin(origin, callback) {
+    if (process.env.NODE_ENV !== "production") {
+      if (origin === "http://localhost:3000") return callback(null, true);
+    }
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(
-  cors({
-    credentials: true,
-    origin: requestOrigin
-  })
-);
+app.use(cors(corsOptions));
 
 app.use(cookieParser(keys.session.cookieKey));
 app.use(

@@ -51,15 +51,17 @@ app.use(
 );
 
 app.use(cookieParser(keys.session.cookieKey));
-app.use(
-  cookieSession({
-    // 4 hour sessions
-    sameSite: true,
-    // secure: true,
-    maxAge: 4 * 60 * 60 * 1000,
-    keys: [keys.session.cookieKey]
-  })
-);
+const cookieSessionConfig = {
+  // 4 hour sessions
+  sameSite: true,
+  // secure: true,
+  maxAge: 4 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+};
+if (NODE_ENV === "production") {
+  cookieSessionConfig.secure = true;
+}
+app.use(cookieSession(cookieSessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());

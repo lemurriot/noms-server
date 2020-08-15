@@ -46,7 +46,11 @@ app.use(helmet());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "https://www.nomspdx.com"]
+    origin: [
+      "http://localhost:3000",
+      "https://www.nomspdx.com",
+      "https://nomspdx.com"
+    ]
   })
 );
 

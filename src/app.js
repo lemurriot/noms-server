@@ -4,8 +4,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session");
+// const cookieParser = require("cookie-parser");
+// const cookieSession = require("cookie-session");
+const session = require("express-session");
 const { NODE_ENV, requestOrigin } = require("./config");
 const keys = require("./config/keys");
 require("./config/passport-setup");
@@ -19,6 +20,24 @@ const authRouter = require("./auth/auth-router");
 
 const app = express();
 
+const sessionConfig = {
+  secret: keys.session.cookieKey,
+  name: "nomspdx",
+  resave: false,
+  cookie: {
+    domain: requestOrigin,
+    sameSite: "strict",
+    maxAge: 4 * 60 * 60 * 1000
+  }
+};
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+  sessionConfig.cookie.secure = true;
+}
+
+app.use(session(sessionConfig));
+
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 
 app.use(morgan(morganOption));
@@ -30,14 +49,14 @@ app.use(
   })
 );
 
-app.use(cookieParser(keys.session.cookieKey));
-app.use(
-  cookieSession({
-    // 4 hour sessions
-    maxAge: 4 * 60 * 60 * 1000,
-    keys: [keys.session.cookieKey]
-  })
-);
+// app.use(cookieParser(keys.session.cookieKey));
+// app.use(
+//   cookieSession({
+//     // 4 hour sessions
+//     maxAge: 4 * 60 * 60 * 1000,
+//     keys: [keys.session.cookieKey],
+//   })
+// );
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,6 +69,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 
 app.get("/", (req, res) => {
+  // console.log(req.session);
   res.send("hello world");
 });
 

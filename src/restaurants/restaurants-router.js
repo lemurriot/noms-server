@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const RestaurantsService = require("./restaurants-service");
+const { NODE_ENV, requestOrigin } = require("../config");
 
 const restaurantsRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -8,6 +9,7 @@ const jsonBodyParser = express.json();
 restaurantsRouter
   .route("/")
   .get((req, res, next) => {
+    console.log({ requestOrigin });
     RestaurantsService.getAllRestaurants(req.app.get("db"))
       .then(restaurants => {
         res.json(restaurants.map(RestaurantsService.serializeRestaurant));

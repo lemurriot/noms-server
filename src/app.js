@@ -20,24 +20,24 @@ const authRouter = require("./auth/auth-router");
 
 const app = express();
 
-const sessionConfig = {
-  secret: keys.session.cookieKey,
-  name: "nomspdx",
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    domain: requestOrigin,
-    sameSite: "strict",
-    maxAge: 4 * 60 * 60 * 1000
-  }
-};
+// const sessionConfig = {
+//   secret: keys.session.cookieKey,
+//   name: "nomspdx",
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie: {
+//     domain: requestOrigin,
+//     sameSite: "strict",
+//     maxAge: 4 * 60 * 60 * 1000
+//   }
+// };
 
-if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1);
-  sessionConfig.cookie.secure = true;
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.set("trust proxy", 1);
+//   sessionConfig.cookie.secure = true;
+// }
 
-app.use(session(sessionConfig));
+// app.use(session(sessionConfig));
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 

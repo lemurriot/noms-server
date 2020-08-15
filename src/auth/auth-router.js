@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const { requestOrigin } = require("../config");
 
 const authRouter = express.Router();
 
@@ -14,7 +15,7 @@ authRouter.get(
   "/google/redirect",
   passport.authenticate("google"),
   (req, res) => {
-    res.redirect("https://www.nomspdx.com");
+    res.redirect(requestOrigin);
   }
 );
 
@@ -24,7 +25,7 @@ authRouter.get("/unsuccessful", (req, res) =>
 
 authRouter.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("https://www.nomspdx.com");
+  res.redirect(requestOrigin);
 });
 
 module.exports = authRouter;

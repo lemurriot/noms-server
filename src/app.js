@@ -54,6 +54,8 @@ app.use(cookieParser(keys.session.cookieKey));
 app.use(
   cookieSession({
     // 4 hour sessions
+    sameSite: true,
+    // secure: true,
     maxAge: 4 * 60 * 60 * 1000,
     keys: [keys.session.cookieKey]
   })

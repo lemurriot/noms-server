@@ -14,7 +14,7 @@ authRouter.get(
   "/google/redirect",
   passport.authenticate("google"),
   (req, res) => {
-    res.redirect("http://localhost:3000");
+    res.redirect("https://www.nomspdx.com");
   }
 );
 

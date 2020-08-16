@@ -56,7 +56,7 @@ app.use(
 
 app.use(cookieParser(keys.session.cookieKey));
 const cookieSessionConfig = {
-  sameSite: "none",
+  sameSite: true,
   // 4 hour sessions
   maxAge: 4 * 60 * 60 * 1000,
   keys: [keys.session.cookieKey]

@@ -56,16 +56,16 @@ app.use(
 
 app.use(cookieParser(keys.session.cookieKey));
 const cookieSessionConfig = {
-  sameSite: false,
-  secure: false,
+  sameSite: "none",
   // 4 hour sessions
   maxAge: 4 * 60 * 60 * 1000,
   keys: [keys.session.cookieKey]
 };
-// if (NODE_ENV === "production") {
-//   app.set("trust proxy", 1);
-//   cookieSessionConfig.secure = true;
-// }
+if (NODE_ENV === "production") {
+  console.log("trust proxy");
+  app.set("trust proxy", 1);
+  cookieSessionConfig.secure = true;
+}
 app.use(cookieSession(cookieSessionConfig));
 
 app.use(passport.initialize());

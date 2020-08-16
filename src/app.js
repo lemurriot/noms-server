@@ -65,6 +65,7 @@ if (NODE_ENV === "production") {
   console.log("trust proxy");
   app.set("trust proxy", 1);
   cookieSessionConfig.secure = true;
+  cookieSessionConfig.domain = "https://www.nomspdx.com";
 }
 app.use(cookieSession(cookieSessionConfig));
 

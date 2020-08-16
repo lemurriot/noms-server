@@ -6,8 +6,7 @@ const helmet = require("helmet");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
-const session = require("express-session");
-const { NODE_ENV, requestOrigin } = require("./config");
+const { NODE_ENV } = require("./config");
 const keys = require("./config/keys");
 require("./config/passport-setup");
 
@@ -19,25 +18,6 @@ const usersRouter = require("./users/users-router");
 const authRouter = require("./auth/auth-router");
 
 const app = express();
-
-// const sessionConfig = {
-//   secret: keys.session.cookieKey,
-//   name: "nomspdx",
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie: {
-//     domain: requestOrigin,
-//     sameSite: "strict",
-//     maxAge: 4 * 60 * 60 * 1000
-//   }
-// };
-
-// if (process.env.NODE_ENV === "production") {
-//   app.set("trust proxy", 1);
-//   sessionConfig.cookie.secure = true;
-// }
-
-// app.use(session(sessionConfig));
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 
@@ -63,7 +43,6 @@ const cookieSessionConfig = {
   keys: [keys.session.cookieKey]
 };
 if (NODE_ENV === "production") {
-  console.log("trust proxy");
   app.set("trust proxy", 1);
   cookieSessionConfig.secure = true;
 }
@@ -79,8 +58,7 @@ app.use("/api/upvotes", upvotesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 
-app.get("/", (req, res) => {
-  // console.log(req.session);
+app.get("/", (_req, res) => {
   res.send("hello world");
 });
 

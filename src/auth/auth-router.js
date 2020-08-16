@@ -1,6 +1,5 @@
 const express = require("express");
 const passport = require("passport");
-const querystring = require("querystring");
 const { requestOrigin } = require("../config");
 
 const authRouter = express.Router();
@@ -15,16 +14,12 @@ authRouter.get(
 authRouter.get(
   "/google/redirect",
   passport.authenticate("google"),
-  (req, res) => {
-    const { id } = req.user;
-    const query = querystring.stringify({
-      id
-    });
+  (_req, res) => {
     res.redirect(`${requestOrigin}`);
   }
 );
 
-authRouter.get("/unsuccessful", (req, res) =>
+authRouter.get("/unsuccessful", (_req, res) =>
   res.send("redirect unsuccessful")
 );
 
